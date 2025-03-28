@@ -1,4 +1,4 @@
-package com.lld;
+package com.bookmyshow;
 
 public class Main {
     public static void main(String[] args) {
