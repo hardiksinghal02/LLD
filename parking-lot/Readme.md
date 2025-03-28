@@ -25,4 +25,4 @@
 5.    Security – Secure payment handling and data encryption.
 6.    Maintainability – Modular and extendable architecture.
 
-![Image](https://github.com/user-attachments/assets/1815e16d-3fb6-4f1e-8c84-0f9daae238ea)
+![Image](https://github.com/user-attachments/assets/a52bd0b8-96de-4b51-80fa-cf4a9db60e93)
