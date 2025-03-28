@@ -15,6 +15,5 @@ public class ParkingLotDaoImpl extends AbstractDaoImpl<ParkingLot> implements Pa
         return instance;
     }
 
-    private ParkingLotDaoImpl() {
-    }
+    private ParkingLotDaoImpl() {}
 }

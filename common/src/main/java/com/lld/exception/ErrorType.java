@@ -1,4 +1,4 @@
-package com.parkinglot.exception;
+package com.lld.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Setter;
@@ -6,7 +6,10 @@ import lombok.Setter;
 @AllArgsConstructor
 public enum ErrorType {
 
-    NOT_FOUND(404, "Data not found");
+    NOT_FOUND(404, "Data not found"),
+    SOMETHING_WENT_WRONG(500, "Something Went Wrong"),
+
+    ;
 
     private Integer statusCode;
 

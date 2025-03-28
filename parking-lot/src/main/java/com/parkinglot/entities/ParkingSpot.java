@@ -11,24 +11,19 @@ import java.util.Objects;
 public abstract class ParkingSpot extends AbstractEntity<ParkingSpot> {
     private String levelId;
 
-//    private String parkingLotId;
-
     private SpotType spotType;
 
-    public ParkingSpot(String id,
-            String levelId,
-//                       String parkingLotId,
-                       SpotType spotType) {
+    private boolean available;
+
+    public ParkingSpot(String id, String levelId, SpotType spotType, boolean available) {
         this.id = id;
         this.levelId = levelId;
-//        this.parkingLotId = parkingLotId;
         this.spotType = spotType;
+        this.available = available;
     }
 
     public String toString() {
-        return id + ", " + levelId +
-//                ", " + parkingLotId + ", " +
-                spotType;
+        return id + ", " + levelId + spotType;
     }
 
     public ParkingSpot clone() {

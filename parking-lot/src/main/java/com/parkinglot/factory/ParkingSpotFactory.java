@@ -11,11 +11,11 @@ public class ParkingSpotFactory {
         ParkingSpot cloned = null;
 
         if (parkingSpot instanceof CompactParkingSpot) {
-            cloned = new CompactParkingSpot(parkingSpot.getId(), parkingSpot.getLevelId());
+            cloned = new CompactParkingSpot(parkingSpot.getId(), parkingSpot.getLevelId(), parkingSpot.isAvailable());
         } else if (parkingSpot instanceof LargeParkingSpot) {
-            cloned = new LargeParkingSpot(parkingSpot.getId(), parkingSpot.getLevelId());
+            cloned = new LargeParkingSpot(parkingSpot.getId(), parkingSpot.getLevelId(), parkingSpot.isAvailable());
         } else if (parkingSpot instanceof RegularParkingSpot) {
-            cloned = new RegularParkingSpot(parkingSpot.getId(), parkingSpot.getLevelId());
+            cloned = new RegularParkingSpot(parkingSpot.getId(), parkingSpot.getLevelId(), parkingSpot.isAvailable());
         }
 
         return cloned;
