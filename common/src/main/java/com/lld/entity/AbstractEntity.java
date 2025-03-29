@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public abstract class AbstractEntity<T> {
 
     protected String id;
+    protected boolean deleted;
 
     public abstract T clone();
 }
