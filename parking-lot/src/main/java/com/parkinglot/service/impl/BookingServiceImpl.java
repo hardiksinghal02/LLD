@@ -9,6 +9,7 @@ import com.parkinglot.enums.BookingStatus;
 import com.parkinglot.exception.ParkingLotException;
 import com.parkinglot.request.EntryRequest;
 import com.parkinglot.response.ParkingTicket;
+import com.parkinglot.response.Receipt;
 import com.parkinglot.service.BookingService;
 import com.parkinglot.service.ParkingLotService;
 
@@ -29,8 +30,8 @@ public class BookingServiceImpl implements BookingService {
     public ParkingTicket entry(EntryRequest entryRequest) {
         Optional<ParkingSpot> parkingSpotOptional =
                 parkingLotService.getAvailableSpots(
-                                entryRequest.getParkingLotId(),
-                                entryRequest.getVehicleType()
+                                entryRequest.parkingLotId(),
+                                entryRequest.vehicleType()
                         )
                         .stream()
                         .filter(ParkingSpot::isAvailable)
@@ -39,15 +40,18 @@ public class BookingServiceImpl implements BookingService {
         if (parkingSpotOptional.isEmpty()) {
             throw new ParkingLotException(ErrorType.NOT_FOUND,
                     String.format("No spot found for parkingLotId : %s, vehicleType : %s",
-                            entryRequest.getParkingLotId(),
-                            entryRequest.getVehicleType()));
+                            entryRequest.parkingLotId(),
+                            entryRequest.vehicleType()));
         }
 
+        ParkingSpot spot = parkingSpotOptional.get();
+
+        // TODO : mark spot as booked
         Optional<Booking> savedBooking = bookingDao.save(
                 Booking.builder()
                         .id(UUID.randomUUID().toString())
-                        .numberPlate(entryRequest.getNumberPlate())
-                        .spotId(parkingSpotOptional.get().getId())
+                        .numberPlate(entryRequest.numberPlate())
+                        .spotId(spot.getId())
                         .entryTime(System.currentTimeMillis())
                         .status(BookingStatus.SPOT_ON_HOLD)
                         .build()
@@ -56,9 +60,11 @@ public class BookingServiceImpl implements BookingService {
         if (savedBooking.isEmpty()) {
             throw new ParkingLotException(ErrorType.SOMETHING_WENT_WRONG,
                     String.format("Something went wrong while booking for parkingLotId : %s, vehicleType : %s",
-                            entryRequest.getParkingLotId(),
-                            entryRequest.getVehicleType()));
+                            entryRequest.parkingLotId(),
+                            entryRequest.vehicleType()));
         }
+
+
 
         Booking booking = savedBooking.get();
 
@@ -67,5 +73,18 @@ public class BookingServiceImpl implements BookingService {
                 .numberPlate(booking.getNumberPlate())
                 .entryTime(DateUtils.epochToString(booking.getEntryTime()))
                 .build();
+    }
+
+    @Override
+    public Receipt exit(ParkingTicket parkingTicket) {
+        Double charges = calculateCharges(parkingTicket);
+        // TODO : handle payment
+        return null;
+    }
+
+    private Double calculateCharges(ParkingTicket parkingTicket) {
+
+        // TODO: logic to calculate charges
+        return 100d;
     }
 }

@@ -3,7 +3,10 @@ package com.parkinglot.entities;
 import com.lld.entity.AbstractEntity;
 import com.parkinglot.enums.SpotType;
 import com.parkinglot.factory.ParkingSpotFactory;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Objects;
 
@@ -13,13 +16,16 @@ public abstract class ParkingSpot extends AbstractEntity<ParkingSpot> {
 
     private SpotType spotType;
 
+    @Setter
     private boolean available;
+    private Double pricePerHour;
 
-    public ParkingSpot(String id, String levelId, SpotType spotType, boolean available) {
-        this.id = id;
+    public ParkingSpot(String id, String levelId, SpotType spotType, boolean available, Double pricePerHour) {
+        super(id);
         this.levelId = levelId;
         this.spotType = spotType;
         this.available = available;
+        this.pricePerHour = pricePerHour;
     }
 
     public String toString() {
